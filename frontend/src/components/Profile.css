@@ -1,0 +1,66 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.profile-header {
+  margin-bottom: 20px;
+}
+
+.profile-header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.profile-header p {
+  margin: 5px 0;
+  color: #777;
+}
+
+.profile-details, .edit-form {
+  text-align: left;
+}
+
+.profile-details p, .edit-form label {
+  margin: 10px 0;
+}
+
+.edit-button, .save-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.edit-button:hover, .save-button:hover {
+  background-color: #0056b3;
+}
+
+input[type="text"], input[type="email"], textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+}
