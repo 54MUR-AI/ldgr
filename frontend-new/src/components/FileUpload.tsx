@@ -3,9 +3,10 @@ import { Upload, Lock } from 'lucide-react'
 
 interface FileUploadProps {
   onFileUpload: (file: File) => void
+  uploading?: boolean
 }
 
-export default function FileUpload({ onFileUpload }: FileUploadProps) {
+export default function FileUpload({ onFileUpload, uploading = false }: FileUploadProps) {
   const [isDragging, setIsDragging] = useState(false)
 
   const handleDrag = useCallback((e: React.DragEvent) => {
@@ -40,21 +41,23 @@ export default function FileUpload({ onFileUpload }: FileUploadProps) {
     <div
       className={`
         relative border-2 border-dashed rounded-2xl p-12 text-center transition-all duration-300
+        ${uploading ? 'opacity-50 cursor-not-allowed' : ''}
         ${isDragging 
           ? 'border-samurai-red bg-samurai-red/10 scale-105' 
           : 'border-samurai-red/30 bg-samurai-grey-darker hover:border-samurai-red hover:bg-samurai-grey-dark'
         }
       `}
-      onDragEnter={handleDrag}
-      onDragLeave={handleDrag}
-      onDragOver={handleDrag}
-      onDrop={handleDrop}
+      onDragEnter={uploading ? undefined : handleDrag}
+      onDragLeave={uploading ? undefined : handleDrag}
+      onDragOver={uploading ? undefined : handleDrag}
+      onDrop={uploading ? undefined : handleDrop}
     >
       <input
         type="file"
         id="file-upload"
         className="hidden"
         onChange={handleFileInput}
+        disabled={uploading}
       />
       
       <label htmlFor="file-upload" className="cursor-pointer">
@@ -78,8 +81,18 @@ export default function FileUpload({ onFileUpload }: FileUploadProps) {
             </div>
           </div>
 
-          <button className="px-8 py-3 bg-samurai-red hover:bg-samurai-red-dark text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-samurai-red/50 transform hover:scale-105">
-            Select Files
+          <button 
+            className="px-8 py-3 bg-samurai-red hover:bg-samurai-red-dark text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-samurai-red/50 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            disabled={uploading}
+          >
+            {uploading ? (
+              <span className="flex items-center gap-2">
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                Encrypting & Uploading...
+              </span>
+            ) : (
+              'Select Files'
+            )}
           </button>
         </div>
       </label>
